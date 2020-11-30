@@ -1,0 +1,34 @@
+<!--Diseño de interfaz para procesar el pago -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <script src="https://www.paypal.com/sdk/js?client-id=AVh-CWPGQ64pLBXR2p7wu8aR5D-GBExehM8gu4BN4_cno3TtFziHG5wGhtYpnGbE_QYEakYLvMxez8sW"> // Replace YOUR_SB_CLIENT_ID with your sandbox client ID
+    </script>
+
+    <h3 class="title">Precio total del pedido: {{ pedido.get_total }}</h3>
+
+    <div class="block" id="paypal-button-container"></div>
+
+    <!-- Add the checkout buttons, set up the order and approve the order -->
+    <script>
+      var total = {{ pedido.get_total }}
+
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: `${total}`
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            window.location.href = 'http://localhost:8000/complete_payment';
+          });
+        }
+      }).render('#paypal-button-container'); // Display payment options on your web page
+    </script>
+{% endblock %}

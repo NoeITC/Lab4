@@ -1,0 +1,42 @@
+<!--Diseño de la pagina de inicio con html--->
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <h3> Hola {{ user.get_username }} </h3>
+    <p>
+      <a href="{% url 'logout' %}">Cierra Sesion</a>
+    </p>
+    {% else %}
+    <h3> Hola </h3>
+    <p>
+      <a href="{% url 'login' %}">Inicia Sesion</a> o
+      <a href="{% url 'register' %}">Registrate</a>
+    </p>
+    {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="notification {% if message.tags %}is-{{ message.tags }}{% endif %}">
+                <button class="delete"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <hr>
+    <h5> Todas las categorías </h5>
+    <ul>
+      {% for categoria in all_categories %}
+        <li>
+          <a href="{% url 'category-detail' categoria.pk %}">
+            {{ categoria.nombre }}
+          </a>
+        </li>
+      {% empty %}
+        <li>Aun no hay productos disponibles.</li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+      <li><a href="{% url 'product-list' %}">Ver Lista de Productos Completa</a></li>
+    </ul>
+{% endblock %}

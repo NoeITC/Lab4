@@ -1,0 +1,15 @@
+<!--Diseño de la interfaz por medio de HTML para la lista de categorias-->
+{% extends "base.html" %}
+
+{% block content %}
+    <h3> Categorias </h3>
+    <ul>
+      {% for categoria in object_list %}
+        <li>
+        <a href="{% url 'category-detail' categoria.pk %}">
+          {{ categoria.nombre }}
+        </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

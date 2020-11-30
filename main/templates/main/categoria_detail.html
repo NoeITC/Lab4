@@ -1,0 +1,21 @@
+<!--Diseño de la interfaz por medio de HTML para el detalle de categoria-->
+{% extends "base.html" %}
+
+{% block content %}
+    <h3> {{ object.nombre }} </h3>
+    <ul>
+      <li><strong>Productos:</strong></li>
+      {% for producto in object.producto_set.all%}
+        <li>
+          <a href="{% url 'product-detail' producto.pk %}">
+          {{ producto }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+      <li><a href="{% url 'category-list' %}">Ver Lista de Categorias</a></li>
+      <li><a href="{% url 'home' %}">Inicio</a></li>
+    </ul>
+  {% endblock %}
