@@ -131,6 +131,11 @@ EMAIL_PORT = '2525'
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = 'L024Y8tt4lUAAAAAAAAAAbMW4noW2Oa80RyC27qYV5MLh6tnfnh2nPYKeFLT2s6c'
 
+import os
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Django Heroku para generar la base de datos en la nube
 import django_heroku
 django_heroku.settings(locals())
