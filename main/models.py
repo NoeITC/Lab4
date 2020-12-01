@@ -147,9 +147,6 @@ class DetallePedido(models.Model):
     def get_subtotal(self):
         return self.producto.get_precio_final() * self.cantidad
 
-#Creamos la clase ProductoImage
-#nos permitira adjuntar varias imagenes por producto
 class ProductoImage(models.Model):
-    #Relaciones con Producto
     product = models.ForeignKey('Producto', on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to="products", null=True, blank=True)# podremos almacenar las imagenes en la carpeta products
+    image = models.ImageField(upload_to="products", null=True, blank=True)
